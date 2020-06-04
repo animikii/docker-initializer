@@ -1,0 +1,8 @@
+.git
+bin/build-docker
+bin/console
+bin/docker-after-build.sh
+bin/docker-before-build.sh
+bin/exec
+bin/server
+bin/shell

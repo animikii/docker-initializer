@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Before build hook
+if [ -f "bin/docker-before-build.sh" ]; then
+  ./bin/docker-before-build.sh
+else
+  echo "[SKIPPING] custom build script, create one here: 'bin/docker-before-build.sh'"
+fi
+
+# Clear out temp files
+echo "== Removing old logs and tempfiles =="
+
+if [ -d "log/*" ]; then rm -rf log/*; fi
+if [ -d "tmp/*" ]; then rm -rf tmp/*; fi
+
+# Run the build
+echo "== Running docker-compose build =="
+
+docker-compose build
+
+# After build hook
+if [ -f "bin/docker-after-build.sh" ]; then
+  ./bin/docker-after-build.sh
+else
+  echo "[SKIPPING] custom build script, create one here: 'bin/docker-after-build.sh'"
+fi
+
+# Complete
+echo "== Build complete :) =="

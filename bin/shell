@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+COMPOSE_PROJECT_NAME=$(grep COMPOSE_PROJECT_NAME .env | cut -d '=' -f2)
+docker exec -it $COMPOSE_PROJECT_NAME-web /bin/bash
