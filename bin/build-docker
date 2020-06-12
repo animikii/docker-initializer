@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# This will ensure the entire script exits if any of the child scripts exit
+set -e
+
 # Before build hook
 if [ -f "bin/docker-before-build.sh" ]; then
   ./bin/docker-before-build.sh

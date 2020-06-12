@@ -69,7 +69,7 @@ bin/exec
 Example:
 
 ```bash
-bin/server yarn install
+bin/exec yarn install
 ```
 
 # Configuration
