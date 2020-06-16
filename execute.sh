@@ -30,32 +30,26 @@ download_file(){
 
 update_file(){
   if [ -f "$1" ]; then
-    echo "$1 exists, would you like to replace it?"
-    read -p '[y/n]: ' TRY_AGAIN
-    if [[ $TRY_AGAIN == 'y' ]]; then
-      download_file $1 $2
-    else
-      echo "skipping $1"
-    fi
+    echo "Skipping $1: File exsists"
   else
     download_file $1 $2
   fi
 }
 
-update_file 'bin/shell' 755
-update_file 'bin/build-docker' 755
-update_file 'bin/console' 755
-update_file 'bin/exec' 755
-update_file 'bin/server' 755
-update_file 'bin/wait-for-it.sh' 755
+download_file 'bin/shell' 755
+download_file 'bin/build-docker' 755
+download_file 'bin/console' 755
+download_file 'bin/exec' 755
+download_file 'bin/server' 755
+download_file 'bin/wait-for-it.sh' 755
+download_file '.dockerignore'
+
 update_file 'bin/docker-before-build.sh' 755
 update_file 'bin/docker-after-build.sh' 755
-
-update_file '.dockerignore'
 update_file 'Dockerfile'
 update_file 'docker-compose.yml'
 
-if [ ! -f "docker-compose.yml" ]; then
+if [ -f "docker-compose.yml" ]; then
   echo "  setting COMPOSE_PROJECT_NAME as \"$COMPOSE_PROJECT_NAME\" in docker-compose.yml"
   sed -i "" "s/COMPOSE_PROJECT_NAME/$COMPOSE_PROJECT_NAME/g" docker-compose.yml
 fi
