@@ -1,8 +1,14 @@
-.git
 bin/build-docker
 bin/console
-bin/docker-after-build.sh
-bin/docker-before-build.sh
 bin/exec
 bin/server
 bin/shell
+.DS_Store
+.git
+tmp
+log
+test
+public/packs
+public/packs-test
+node_modules
+yarn-error.log
