@@ -37,15 +37,12 @@ update_file(){
 }
 
 download_file 'bin/shell' 755
-download_file 'bin/build-docker' 755
 download_file 'bin/console' 755
 download_file 'bin/exec' 755
 download_file 'bin/server' 755
-download_file 'bin/wait-for-it.sh' 755
 download_file '.dockerignore'
 
-update_file 'bin/docker-before-build.sh' 755
-update_file 'bin/docker-after-build.sh' 755
+update_file 'bin/build-docker' 755
 update_file 'Dockerfile'
 update_file 'docker-compose.yml'
 

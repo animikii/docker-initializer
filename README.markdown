@@ -24,11 +24,7 @@ bash <(curl -o- -L https://raw.githubusercontent.com/animikii/docker-initializer
 
 ### Build
 
-Run the docker build process if you haven't ever run this locally. The life cycle is as follows:
-
-1. `docker-before-build`
-2. `docker-compse build`
-3. `docker-after-build`
+Run the docker build process if you haven't ever run this locally
 
 ```bash
 bin/build-docker
