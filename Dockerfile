@@ -25,20 +25,16 @@ RUN apt-get update
 ### ----------------------------------- Setup the working directory and link it to our host directory
 RUN mkdir /app
 WORKDIR /app
+COPY . /app
 
 ### ----------------------------------- Install bundler
 RUN gem install bundler
 
 ### ----------------------------------- Run bundler
-COPY Gemfile Gemfile.lock ./
 RUN bundle check || bundle install
 
 ### ----------------------------------- Run yarn install
-# COPY package.json yarn.lock ./
 # RUN yarn install --check-files
-
-### ----------------------------------- Copy app directory
-COPY . ./
 
 ### ----------------------------------- Expose port 3000 to the world
 EXPOSE 3000

@@ -23,6 +23,9 @@ set -e
 #   echo $KEY > config/master.key
 # fi
 
+# ----------------------------------- Build the web container and tag it
+docker build . -f ./Dockerfile -t TAGNAME
+
 ### -----------------------------------
 ### Start the container
 
