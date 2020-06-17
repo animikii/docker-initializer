@@ -1,5 +1,33 @@
-version: "3.1"
+version: "3.8"
 services:
+  web:
+    container_name: COMPOSE_PROJECT_NAME-web
+    # build: .
+    image: DOCKERHUB_USER/IMAGE:TAG
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    env_file: .env
+    environment:
+      RAILS_ENV: development
+      # NODE_OPTIONS: --max-old-space-size=8192
+    volumes:
+      - .:/app
+      - gem_cache:/usr/local/bundle/gems
+      # - node_modules:/app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      # - postgres
+      # - mysql
+      # - redis
+  # postgres:
+  #   container_name: COMPOSE_PROJECT_NAME-postgres
+  #   image: postgres:12.2
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - db_data:/var/lib/postgresql/data
+  #   environment:
+  #     POSTGRES_PASSWORD: root
   # mysql:
   #   container_name: COMPOSE_PROJECT_NAME-mysql
   #   image: mysql:5.6
@@ -7,35 +35,13 @@ services:
   #     - "3306:3306"
   #   environment:
   #     - MYSQL_ROOT_PASSWORD=root
-
-  # postgres:
-  #   container_name: COMPOSE_PROJECT_NAME-postgres
-  #   image: postgres:12.2
-  #   ports:
-  #     - "5432:5432"
-  #   environment:
-  #     POSTGRES_PASSWORD: root
-
   # redis:
   #   container_name: COMPOSE_PROJECT_NAME-redis
   #   image: redis:latest
   #   ports:
   #     - "6379:6379"
 
-  web:
-    container_name: COMPOSE_PROJECT_NAME-web
-    build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    # If you need to wait for mysql to connect you can use the handy wait-for-it script
-    # command: bash -c "/app/bin/wait-for-it.sh mysql:3306 -- rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    environment:
-      RAILS_ENV: development
-      NODE_OPTIONS: --max-old-space-size=8192
-    volumes:
-      - .:/app
-    ports:
-      - "3000:3000"
-    depends_on:
-      # - mysql
-      # - postgres
-      # - redis
+volumes:
+  gem_cache:
+  # db_data:
+  # node_modules:

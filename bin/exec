@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
-docker-compose exec web $@
+
+# Always wait until we have a web container before trying to execute any commands
+docker-compose exec web bin/wait-for-it.sh -h localhost -p 3000 -s -t 0 -- $@;

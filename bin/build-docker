@@ -1,39 +1,37 @@
 #!/usr/bin/env bash
 
-# This will ensure the entire script exits if any of the child scripts exit
+### -----------------------------------
+### This will ensure the entire script exits if any of the child scripts exit
 set -e
 
-# Before build hook
-if [ -f "bin/docker-before-build.sh" ]; then
-  ./bin/docker-before-build.sh
-else
-  echo "[SKIPPING] custom build script, create one here: 'bin/docker-before-build.sh'"
-fi
+### -----------------------------------
+### Copy necessary files that are not versioned in the repo or require user input
 
-# Clear out temp files
-echo "== Removing old logs and tempfiles =="
+# if ! test -f ".env"; then
+#   cp .env.example .env
+# fi
 
-if [ -d "log/*" ]; then rm -rf log/*; fi
-if [ -d "tmp/*" ]; then rm -rf tmp/*; fi
+# if ! test -f "config/database.yml"; then
+#   cp config/database.yml.example config/database.yml
+# fi
 
-mkdir -p log || true
-mkdir -p tmp || true
+# if ! test -f "config/master.key"; then
+#   touch config/master.key
+  
+#   echo "Please enter the master.key:"
+#   read -sp 'key: ' KEY
+#   echo $KEY > config/master.key
+# fi
 
-mkdir -p tmp/cache || true
-mkdir -p tmp/pids || true
-mkdir -p tmp/sockets || true
+### -----------------------------------
+### Start the container
 
-# Run the build
-echo "== Running docker-compose build =="
+docker-compose up -d
 
-docker-compose build
+# bin/exec rails db:setup
 
-# After build hook
-if [ -f "bin/docker-after-build.sh" ]; then
-  ./bin/docker-after-build.sh
-else
-  echo "[SKIPPING] custom build script, create one here: 'bin/docker-after-build.sh'"
-fi
+# bin/exec yarn install
 
-# Complete
-echo "== Build complete :) =="
+# bin/exec rails db:test:prepare
+
+docker-compose stop

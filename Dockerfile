@@ -1,6 +1,6 @@
 FROM ruby:2.6.5
 
-# ----------------------------------- apt-get
+### ----------------------------------- apt-get
 RUN apt-get update 
 
 # ImageMagick
@@ -22,17 +22,26 @@ RUN apt-get update
 # mysql
 # RUN apt-get update && apt-get install -y mariadb-client 
 
-# ----------------------------------- Setup the working directory and link it to our host directory
+### ----------------------------------- Setup the working directory and link it to our host directory
 RUN mkdir /app
 WORKDIR /app
-COPY . /app 
 
-# ----------------------------------- Run bundler
+### ----------------------------------- Install bundler
 RUN gem install bundler
+
+### ----------------------------------- Run bundler
+COPY Gemfile Gemfile.lock ./
 RUN bundle check || bundle install
 
-# ----------------------------------- Expose port 3000 to the world
+### ----------------------------------- Run yarn install
+# COPY package.json yarn.lock ./
+# RUN yarn install --check-files
+
+### ----------------------------------- Copy app directory
+COPY . ./
+
+### ----------------------------------- Expose port 3000 to the world
 EXPOSE 3000
 
-# -----------------------------------Start the main process.
-CMD ["rails", "server", "-b", "0.0.0.0"]
+### ----------------------------------- Start the main process.
+CMD ["bundle", "exec", "rails", "server", "-p", "3000", "-b", "0.0.0.0"]

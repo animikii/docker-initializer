@@ -24,11 +24,7 @@ bash <(curl -o- -L https://raw.githubusercontent.com/animikii/docker-initializer
 
 ### Build
 
-Run the docker build process if you haven't ever run this locally. The life cycle is as follows:
-
-1. `docker-before-build`
-2. `docker-compse build`
-3. `docker-after-build`
+Run the docker build process if you haven't ever run this locally
 
 ```bash
 bin/build-docker
@@ -93,15 +89,3 @@ I've left templates for common images used like mysql, postgres, and redis
 ### .env
 
 This isn't included in this at the moment, you'll have to manually add your `COMPOSE_PROJECT_NAME` environment variable into your project
-
-### Before build
-
-This script runs before the image is created, common tasks here are to copy the `database.yml`, `secrets.yml`, `master.key`
-
-### After build
-
-Finally after your image has successfully been created this script can run post build tasks like creating databases etc.
-
-This has been the most challenging part of the process as it depends on everything running perfectly before this point. Additionally some containers will crash if the application throws an error. 
-
-How do you run `bundle exec rake db:create` if there's no container? How do you start a container if it crashes because you haven't run `bundle exec rake db:create`? One depends on the other and vice-versa... If anyone knows please enlighten me!
