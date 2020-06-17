@@ -28,10 +28,10 @@ set -e
 
 docker-compose up -d
 
-# docker-compose exec web rails db:setup
+# bin/exec rails db:setup
 
-# docker-compose exec web yarn install
+# bin/exec yarn install
 
-# docker-compose exec web rails db:test:prepare
+# bin/exec rails db:test:prepare
 
 docker-compose stop

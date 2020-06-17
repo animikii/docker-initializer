@@ -10,7 +10,6 @@ if [ ! -f ".env" ]; then
   exit
 fi
 
-COMPOSE_PROJECT_NAME=$(grep COMPOSE_PROJECT_NAME .env | cut -d '=' -f2)
 RAW_URL=https://raw.githubusercontent.com/animikii/docker-initializer/master
 
 # Download a file from the repo
@@ -45,8 +44,3 @@ download_file '.dockerignore'
 update_file 'bin/build-docker' 755
 update_file 'Dockerfile'
 update_file 'docker-compose.yml'
-
-if [ -f "docker-compose.yml" ]; then
-  echo "  setting COMPOSE_PROJECT_NAME as \"$COMPOSE_PROJECT_NAME\" in docker-compose.yml"
-  sed -i "" "s/COMPOSE_PROJECT_NAME/$COMPOSE_PROJECT_NAME/g" docker-compose.yml
-fi
