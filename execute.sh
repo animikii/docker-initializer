@@ -39,6 +39,7 @@ download_file 'bin/shell' 755
 download_file 'bin/console' 755
 download_file 'bin/exec' 755
 download_file 'bin/server' 755
+download_file 'bin/wait-for-it.sh' 755
 download_file '.dockerignore'
 
 update_file 'bin/build-docker' 755
