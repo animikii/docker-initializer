@@ -2,7 +2,6 @@ version: "3.8"
 services:
   web:
     container_name: COMPOSE_PROJECT_NAME-web
-    # build: .
     image: DOCKERHUB_USER/IMAGE:TAG
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     env_file: .env
@@ -33,6 +32,8 @@ services:
   #   image: mysql:5.6
   #   ports:
   #     - "3306:3306"
+  #   volumes:
+  #     - db_data:/var/lib/mysql
   #   environment:
   #     - MYSQL_ROOT_PASSWORD=root
   # redis:
