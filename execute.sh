@@ -5,11 +5,6 @@ if [ ! -f "Gemfile" ]; then
   exit
 fi
 
-if [ ! -f ".env" ]; then
-  echo "[EXITING] Unable to find a .env, make sure you create one with a valid COMPOSE_PROJECT_NAME variable?"
-  exit
-fi
-
 RAW_URL=https://raw.githubusercontent.com/animikii/docker-initializer/master
 
 # Download a file from the repo

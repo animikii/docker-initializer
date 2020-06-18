@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Run minitests if they are set up
+# Usage:
+#       bin/test                                     Run the entire test suite
+#       bin/test path/to/test/file.rb                Run a single file
+#       bin/test path/to/test/file.rb test_name      Run a single test in a file
+
+if [ $2 ] ; then
+  docker-compose exec web ruby -I lib:test "$1" -n "$2";
+elif [ $1 ] ; then
+  docker-compose exec web ruby -I lib:test "$1";
+else
+  docker-compose exec web bundle exec rails test
+fi

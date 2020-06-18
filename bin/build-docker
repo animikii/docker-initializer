@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+# Initialize the docker build step. 
+# 1. It should copy/move/create any configuration that is required before starting a build. 
+# 2. Initialize the build of the web container, which should include bundle install and yarn install if needed
+# 3. Start the container to ensure depends_on containers are downloaded and created
+# 4. Run database setup steps and anything else needed for running development
+# 5. Stop the containers
+
 
 ### -----------------------------------
 ### This will ensure the entire script exits if any of the child scripts exit
